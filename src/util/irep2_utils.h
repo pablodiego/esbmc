@@ -125,13 +125,15 @@ inline bool is_true(const expr2tc &expr)
   if(is_constant_bool2t(expr) && to_constant_bool2t(expr).value)
     return true;
 
-  if (is_constant_int2t(expr) && !to_constant_int2t(expr).value.is_zero())
+  if(is_constant_int2t(expr) && !to_constant_int2t(expr).value.is_zero())
     return true;
 
-  if (is_constant_floatbv2t(expr) && !to_constant_floatbv2t(expr).value.is_zero())
+  if(
+    is_constant_floatbv2t(expr) && !to_constant_floatbv2t(expr).value.is_zero())
     return true;
 
-  if (is_constant_fixedbv2t(expr) && !to_constant_fixedbv2t(expr).value.is_zero())
+  if(
+    is_constant_fixedbv2t(expr) && !to_constant_fixedbv2t(expr).value.is_zero())
     return true;
 
   return false;
@@ -148,13 +150,13 @@ inline bool is_false(const expr2tc &expr)
   if(is_constant_bool2t(expr) && !to_constant_bool2t(expr).value)
     return true;
 
-  if (is_constant_int2t(expr) && to_constant_int2t(expr).value.is_zero())
+  if(is_constant_int2t(expr) && to_constant_int2t(expr).value.is_zero())
     return true;
 
-  if (is_constant_floatbv2t(expr) && to_constant_floatbv2t(expr).value.is_zero())
+  if(is_constant_floatbv2t(expr) && to_constant_floatbv2t(expr).value.is_zero())
     return true;
 
-  if (is_constant_fixedbv2t(expr) && to_constant_fixedbv2t(expr).value.is_zero())
+  if(is_constant_fixedbv2t(expr) && to_constant_fixedbv2t(expr).value.is_zero())
     return true;
 
   return false;
@@ -259,6 +261,9 @@ inline const type2tc &get_base_array_subtype(const type2tc &type)
 
 inline bool simplify(expr2tc &expr)
 {
+  if(is_nil_expr(expr))
+    return false;
+
   expr2tc tmp = expr->simplify();
   if(!is_nil_expr(tmp))
   {
