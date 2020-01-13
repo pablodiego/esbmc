@@ -764,12 +764,8 @@ int esbmc_parseoptionst::doit_k_induction_parallel()
       bmct bmc(goto_functions, opts, context, ui_message_handler);
       set_verbosity_msg(bmc);
 
-      bmc.options.set_option("unwind", i2string(k_step));
-
-      std::cout << std::endl << "*** K-Induction Loop Iteration ";
-      std::cout << i2string((unsigned long)k_step);
-      std::cout << " ***" << std::endl;
-      std::cout << "*** Checking base case" << std::endl;
+      bmc.options.set_option("unwind", integer2string(k_step));
+      std::cout << "*** Checking base case, k = " << k_step << '\n';
 
       // If an exception was thrown, we should abort the process
       bool res = true;
@@ -879,12 +875,8 @@ int esbmc_parseoptionst::doit_k_induction_parallel()
       bmct bmc(goto_functions, opts, context, ui_message_handler);
       set_verbosity_msg(bmc);
 
-      bmc.options.set_option("unwind", i2string(k_step));
-
-      std::cout << std::endl << "*** K-Induction Loop Iteration ";
-      std::cout << i2string((unsigned long)k_step);
-      std::cout << " ***" << std::endl;
-      std::cout << "*** Checking forward condition" << std::endl;
+      bmc.options.set_option("unwind", integer2string(k_step));
+      std::cout << "*** Checking forward condition, k = " << k_step << '\n';
 
       // If an exception was thrown, we should abort the process
       bool res = true;
@@ -952,12 +944,8 @@ int esbmc_parseoptionst::doit_k_induction_parallel()
       bmct bmc(goto_functions, opts, context, ui_message_handler);
       set_verbosity_msg(bmc);
 
-      bmc.options.set_option("unwind", i2string(k_step));
-
-      std::cout << std::endl << "*** K-Induction Loop Iteration ";
-      std::cout << i2string((unsigned long)k_step + 1);
-      std::cout << " ***" << std::endl;
-      std::cout << "*** Checking inductive step" << std::endl;
+      bmc.options.set_option("unwind", integer2string(k_step));
+      std::cout << "*** Checking inductive step, k = " << k_step << '\n';
 
       // If an exception was thrown, we should abort the process
       bool res = true;
@@ -1034,10 +1022,6 @@ int esbmc_parseoptionst::doit_k_induction()
 
   for(BigInt k_step = 1; k_step <= max_k_step; k_step += k_step_inc)
   {
-    std::cout << "\n*** Iteration number ";
-    std::cout << k_step;
-    std::cout << " ***\n";
-
     if(do_base_case(opts, goto_functions, k_step))
       return true;
 
@@ -1084,10 +1068,6 @@ int esbmc_parseoptionst::doit_falsification()
 
   for(BigInt k_step = 1; k_step <= max_k_step; k_step += k_step_inc)
   {
-    std::cout << "\n*** Iteration number ";
-    std::cout << integer2string(k_step);
-    std::cout << " ***\n";
-
     if(do_base_case(opts, goto_functions, k_step))
       return true;
   }
@@ -1128,10 +1108,6 @@ int esbmc_parseoptionst::doit_incremental()
 
   for(BigInt k_step = 1; k_step <= max_k_step; k_step += k_step_inc)
   {
-    std::cout << "\n*** Iteration number ";
-    std::cout << k_step;
-    std::cout << " ***\n";
-
     if(do_base_case(opts, goto_functions, k_step))
       return true;
 
@@ -1175,10 +1151,6 @@ int esbmc_parseoptionst::doit_termination()
 
   for(BigInt k_step = 1; k_step <= max_k_step; k_step += k_step_inc)
   {
-    std::cout << "\n*** Iteration number ";
-    std::cout << k_step;
-    std::cout << " ***\n";
-
     if(!do_forward_condition(opts, goto_functions, k_step))
       return false;
 
@@ -1209,7 +1181,7 @@ int esbmc_parseoptionst::do_base_case(
 
   bmc.options.set_option("unwind", integer2string(k_step));
 
-  std::cout << "*** Checking base case\n";
+  std::cout << "*** Checking base case, k = " << k_step << '\n';
   switch(do_bmc(bmc))
   {
   case smt_convt::P_UNSATISFIABLE:
@@ -1256,7 +1228,7 @@ int esbmc_parseoptionst::do_forward_condition(
 
   bmc.options.set_option("unwind", integer2string(k_step));
 
-  std::cout << "*** Checking forward condition\n";
+  std::cout << "*** Checking forward condition, k = " << k_step << '\n';
   auto res = do_bmc(bmc);
 
   // Restore the no assertion flag, before checking the other steps
@@ -1311,7 +1283,7 @@ int esbmc_parseoptionst::do_inductive_step(
 
   bmc.options.set_option("unwind", integer2string(k_step));
 
-  std::cout << "*** Checking inductive step\n";
+  std::cout << "*** Checking inductive step, k = " << k_step << '\n';
   switch(do_bmc(bmc))
   {
   case smt_convt::P_SATISFIABLE:
