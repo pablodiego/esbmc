@@ -14,6 +14,9 @@ Author: Daniel Kroening, kroening@kroening.com
 #include <util/arith_tools.h>
 #include <util/mp_arith.h>
 
+typedef BigInt::ullong_t ullong_t; 
+typedef BigInt::llong_t llong_t; 
+
 BigInt operator>>(const BigInt &a, const BigInt &b)
 {
   BigInt power = ::power(2, b);
@@ -149,4 +152,123 @@ unsigned integer2unsigned(const BigInt &n)
   BigInt::ullong_t ull = n.to_ulong();
   assert(ull <= std::numeric_limits<unsigned>::max());
   return (unsigned)ull;
+}
+
+
+BigInt bitwise_or(const BigInt &a, const BigInt &b)
+{
+  PRECONDITION(!a.is_negative() && !b.is_negative());
+
+  if(a.is_ulong() && b.is_ulong())
+    return a.to_ulong() | b.to_ulong();
+
+  return bitwise(a, b, [](bool a , bool b) { return a || b});
+}
+
+BigInt bitwise_and(const BigInt &a, const BigInt &b)
+{
+  PRECONDITION(!a.is_negative() && !b.is_negative());
+
+  if(a.is_ulong() && b.is_ulong())
+    return a.to_ulong() | b.to_ulong();
+
+  return bitwise(a, b, [](bool a , bool b) { return a || b});
+
+}
+
+BigInt bitwise_xor(const BigInt &a, const BigInt &b)
+{
+  PRECONDITION(!a.is_negative() && !b.is_negative());
+
+  if(a.is_ulong() && b.is_ulong())
+    return a.to_ulong() | b.to_ulong();
+
+  return bitwise(a, b, [](bool a , bool b) { return a || b});
+
+}
+
+BigInt arith_left_shift(const BigInt &a, const BigInt &b, std:size_t true_size);
+{
+  PRECONDITION(a.is_long() && b.is_ulong());
+  PRECONDITION(b <= true_size || a == 0);
+
+  ullong_t shift=b.to_ulong();
+
+  llong_t result=a.to_long()<<shift;
+  llong_t mask = 
+    true_size<(sizeof(llong_t)*8) ?
+    (1LL << true_size) -1 :
+    -1;
+    return result&mask;
+}
+
+BigInt arith_right_shift(const BigInt &a, const BigInt &b, std:size_t true_size);
+{
+  PRECONDITION(a.is_long() && b.is_ulong());
+  llong_t number=a.to_long();
+  ullong_t shift=b.to_ulong();
+  PRECONDITION(shift <= true_size);
+
+  const llong_t sign = (1LL << (true_size - 1)) & number;
+  const llong_t pad = (sign == 0) ? 0 : ~((1LL << (true_size - shift)) - 1);
+  llong_t result=(number >> shift)|pad;
+  return result;
+}
+
+BigInt logic_left_shift(const BigInt &a, const BigInt &b, std:size_t true_size);
+{
+  PRECONDITION(a.is_long() && b.is_ulong());
+  PRECONDITION(b <= true_size || a == 0);
+
+  ullong_t shift=b.to_ulong();
+  llong_t result=a.to_long()<<shift;
+  if(true_size<(sizeof(llong_t)*8))
+  {
+    const llong_t sign = (1LL << (true_size - 1)) & result;
+    const llong_t mask = (1LL << true_size) - 1;
+    // Sign-fill out-of-range bits:
+    if(sign==0)
+      result&=mask;
+    else
+      result|=~mask;
+  }
+  return result;
+}
+
+BigInt logic_right_shift(const BigInt &a, const BigInt &b, std:size_t true_size);
+{
+  PRECONDITION(a.is_long() && b.is_ulong());
+  PRECONDITION(b <= true_size);
+
+  ullong_t shift = b.to_ulong();
+  ullong_t result=((ullong_t)a.to_long()) >> shift;
+  return result;
+}
+
+BigInt rotate_right(const BigInt &a, const BigInt &b, std:size_t true_size);
+{
+  PRECONDITION(a.is_ulong() && b.is_ulong());
+  PRECONDITION(b <= true_size);
+
+  ullong_t number=a.to_ulong();
+  ullong_t shift=b.to_ulong();
+
+  ullong_t revShift=true_size-shift;
+  const ullong_t filter = 1ULL << (true_size - 1);
+  ullong_t result=(number >> shift)|((number<<revShift)&filter);
+  return result;
+}
+
+BigInt rotate_left(const BigInt &a, const BigInt &b, std:size_t true_size);
+{
+  PRECONDITION(a.is_ulong() && b.is_ulong());
+  PRECONDITION(b <= true_size);
+
+  ullong_t number=a.to_ulong();
+  ullong_t shift=b.to_ulong();
+
+  ullong_t revShift=true_size-shift;
+  const ullong_t filter = 1ULL << (true_size - 1);
+  ullong_t result=((number<<shift)&filter)|((number&filter) >> revShift);
+  return result;
 }
