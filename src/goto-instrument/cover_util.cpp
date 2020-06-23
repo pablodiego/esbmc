@@ -13,13 +13,14 @@ Author: Daniel Kroening
 
 bool is_condition(const exprt &src)
 {
-  if(src.type().id() != ID_bool)
+  if(src.type().id() != id_bool)
     return false;
 
   // conditions are 'atomic predicates'
   if(
-    src.id() == ID_and || src.id() == ID_or || src.id() == ID_not ||
-    src.id() == ID_implies)
+    src.id() == id_and || src.id() == id_or || src.id() == id_not
+ ||
+    src.id() == id_implies)
     return false;
 
   return true;
@@ -27,7 +28,7 @@ bool is_condition(const exprt &src)
 
 void collect_conditions_rec(const exprt &src, std::set<exprt> &dest)
 {
-  if(src.id() == ID_address_of)
+  if(src.id() == id_address_of)
   {
     return;
   }
@@ -68,18 +69,19 @@ void collect_operands(const exprt &src, std::vector<exprt> &dest)
 
 void collect_decisions_rec(const exprt &src, std::set<exprt> &dest)
 {
-  if(src.id() == ID_address_of)
+  if(src.id() == id_address_of)
   {
     return;
   }
 
-  if(src.type().id() == ID_bool)
+  if(src.type().id() == id_bool)
   {
     if(src.is_constant())
     {
       // ignore me
     }
-    else if(src.id() == ID_not)
+    else if(src.id() == id_not
+)
     {
       collect_decisions_rec(to_not_expr(src).op(), dest);
     }

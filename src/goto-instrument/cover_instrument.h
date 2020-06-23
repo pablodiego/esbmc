@@ -38,7 +38,8 @@ public:
 
   /// The type of function used to make goto_program assertions.
   using assertion_factoryt = std::function<
-    goto_programt::instructiont(const exprt &, const source_locationt &)>;
+    goto_programt::instructiont(const exprt &, const locationt
+ &)>;
   static_assert(
     std::is_same<
       assertion_factoryt,
@@ -84,16 +85,16 @@ protected:
     const std::string &comment,
     const irep_idt &function_id) const
   {
-    t->source_location.set_comment(comment);
-    t->source_location.set(ID_coverage_criterion, coverage_criterion);
-    t->source_location.set_property_class(property_class);
-    t->source_location.set_function(function_id);
+    t->location.set_comment(comment);
+    t->location.set(ID_coverage_criterion, coverage_criterion);
+    t->location.set_property_class(property_class);
+    t->location.set_function(function_id);
   }
 
   bool is_non_cover_assertion(goto_programt::const_targett t) const
   {
     return t->is_assert() &&
-           t->source_location.get_property_class() != property_class;
+           t->location.get_property_class() != property_class;
   }
 };
 

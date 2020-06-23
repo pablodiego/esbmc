@@ -61,7 +61,8 @@ public:
   }
 
   /// Returns true if the goal passes the filter criteria
-  virtual bool operator()(const source_locationt &) const = 0;
+  virtual bool operator()(const locationt
+ &) const = 0;
 
   /// Can be called after final filter application to report
   /// on unexpected situations encountered
@@ -121,7 +122,8 @@ public:
 
   /// Applies the filters to the given source location
   /// \param source_location: a source location where a goal is instrumented
-  bool operator()(const source_locationt &source_location) const
+  bool operator()(const locationt
+ &source_location) const
   {
     for(const auto &filter : filters)
       if(!(*filter)(source_location))
@@ -235,7 +237,8 @@ public:
   {
   }
 
-  bool operator()(const source_locationt &) const override;
+  bool operator()(const locationt
+ &) const override;
 };
 
 #endif // CPROVER_GOTO_INSTRUMENT_COVER_FILTER_H

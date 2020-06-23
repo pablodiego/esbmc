@@ -47,7 +47,8 @@ cover_basic_blockst::cover_basic_blockst(const goto_programt &_goto_program)
       {
         block_infos.emplace_back();
         block_infos.back().representative_inst = it;
-        block_infos.back().source_location = source_locationt::nil();
+        block_infos.back().source_location = locationt
+::nil();
         current_block = block_infos.size() - 1;
       }
     }
@@ -107,7 +108,8 @@ cover_basic_blockst::instruction_of(const std::size_t block_nr) const
   return block_infos[block_nr].representative_inst;
 }
 
-const source_locationt &
+const locationt
+ &
 cover_basic_blockst::source_location_of(const std::size_t block_nr) const
 {
   INVARIANT(block_nr < block_infos.size(), "block number out of range");
@@ -227,7 +229,8 @@ cover_basic_blocks_javat::instruction_of(const std::size_t block_nr) const
   return block_infos[block_nr];
 }
 
-const source_locationt &
+const locationt
+ &
 cover_basic_blocks_javat::source_location_of(const std::size_t block_nr) const
 {
   PRECONDITION(block_nr < block_locations.size());

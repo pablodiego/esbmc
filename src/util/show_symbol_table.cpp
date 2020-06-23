@@ -12,7 +12,7 @@ Author: Daniel Kroening, kroening@kroening.com
 #include <util/language.h>
 #include <langapi/mode.h>
 
-#include "show_symbol_table.h"
+//#include "show_symbol_table.h"
 
 void show_symbol_table_xml_ui()
 {

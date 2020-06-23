@@ -160,6 +160,10 @@ const struct opt_templ esbmc_options[] = {
   {0, "no-propagation", switc, ""},
   {0, "interval-analysis", switc, ""},
 
+  // HELP_GOTO_CHECK
+
+  {0, "cover", switc, ""},
+
   // DEBUG options
 
   // Print commit hash for current binary

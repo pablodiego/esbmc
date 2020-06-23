@@ -125,7 +125,8 @@ bool trivial_functions_filtert::operator()(
 /// \param source_location: source location of the current goal
 /// \return true : if the given source location is not considered internal
 bool internal_goals_filtert::
-operator()(const source_locationt &source_location) const
+operator()(const locationt
+ &source_location) const
 {
   if(source_location.get_file().empty())
     return false;

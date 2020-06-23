@@ -11,7 +11,7 @@ Author: Daniel Kroening, kroening@cs.cmu.edu
 #include <langapi/mode.h>
 #include <memory>
 #include <util/i2string.h>
-#include <util/show_symbol_table.h>
+//#include <util/show_symbol_table.h>
 
 static ui_message_handlert::uit get_ui_cmdline(const cmdlinet &cmdline)
 {
@@ -128,7 +128,7 @@ void language_uit::show_symbol_table()
   switch(get_ui())
   {
   case ui_message_handlert::PLAIN:
-    show_symbol_table_plain(std::cout);
+   // show_symbol_table_plain(std::cout);
     break;
 
   case ui_message_handlert::XML_UI:
@@ -145,7 +145,7 @@ void language_uit::show_symbol_table_xml_ui()
   error("cannot show symbol table in this format");
 }
 
-void language_uit::show_symbol_table_plain(std::ostream &out)
-{
-  ::show_symbol_table_plain(namespacet(context), out);
-}
+// void language_uit::show_symbol_table_plain(std::ostream &out)
+// {
+//   ::show_symbol_table_plain(namespacet(context), out);
+// }

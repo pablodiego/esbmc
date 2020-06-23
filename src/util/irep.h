@@ -442,6 +442,41 @@ public:
     return find(s_elements);
   }
 
+  inline const irep_idt &get_property_id() const
+  {
+    return get(id_property_id);
+  }
+
+  inline const irep_idt &get_property_class() const
+  {
+    return get(id_property_class);
+  }
+
+  inline const irep_idt &get_comment() const
+  {
+    return get(id_comment);
+  }
+
+  inline const irep_idt &get_case_number() const
+  {
+    return get(id_switch_case_number);
+  }
+
+  inline const irep_idt &get_java_bytecode_index() const
+  {
+    return get(id_java_bytecode_index);
+  }
+
+  inline const irep_idt &get_basic_block_covered_lines() const
+  {
+    return get(id_basic_block_covered_lines);
+  }
+
+  inline const irep_idt &get_basic_block_source_lines() const
+  {
+    return get(id_basic_block_source_lines);
+  }
+
   inline bool is_dynamic_set() const
   {
     const irep_idt &c = get(a_dynamic);
@@ -1255,6 +1290,8 @@ public:
   static const irep_idt id_not, id_notequal, id_pointer, id_signedbv;
   static const irep_idt id_struct, id_symbol, id_typecast, id_union;
   static const irep_idt id_unsignedbv;
+  static const irep_idt id_property_id, id_property_class, id_comment, id_switch_case_number;
+  static const irep_idt id_java_bytecode_index,id_basic_block_covered_lines, id_basic_block_source_lines; 
 
   class dt
   {

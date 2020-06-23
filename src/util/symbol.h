@@ -14,6 +14,7 @@ Author: Daniel Kroening, kroening@kroening.com
 #include <list>
 #include <util/expr.h>
 #include <util/location.h>
+#include <util/invariant.h>
 
 class symbolt
 {
@@ -25,6 +26,7 @@ public:
   irep_idt module;
   irep_idt name;
   irep_idt mode;
+
 
   // global use
   bool is_type, is_macro, is_parameter;

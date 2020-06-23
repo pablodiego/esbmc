@@ -629,3 +629,12 @@ const irep_idt irept::id_symbol = dstring("symbol");
 const irep_idt irept::id_typecast = dstring("typecast");
 const irep_idt irept::id_union = dstring("union");
 const irep_idt irept::id_unsignedbv = dstring("unsignedbv");
+
+const irep_idt irept::id_working_directory = dstring ("cwd");
+const irep_idt irept::id_property_id = dstring("property_id");
+const irep_idt irept::id_property_class= dstring("property_class");
+const irep_idt irept::id_comment = dstring("comment");
+const irep_idt irept::id_switch_case_number = dstring("number");
+const irep_idt irept::id_java_bytecode_index = dstring("index");
+const irep_idt irept::id_basic_block_covered_lines = dstring("covered_lines");
+const irep_idt irept::id_basic_block_source_lines = dstring("source_lines");

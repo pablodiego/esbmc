@@ -34,6 +34,7 @@ extern "C"
 #include <cstdlib>
 #include <util/expr_util.h>
 #include <fstream>
+#include <goto-instrument/cover.h>
 #include <goto-programs/add_race_assertions.h>
 #include <goto-programs/goto_check.h>
 #include <goto-programs/goto_convert_functions.h>
@@ -1852,5 +1853,10 @@ void esbmc_parseoptionst::help()
        " --enable-core-dump           do not disable core dump output\n"
        " --interval-analysis          enable interval analysis and add assumes "
        "to the program\n"
-       "\n";
+       "\n"
+       
+       "\nGOTO_CHECK\n"
+       " -- cover cc                  create test-suite with coverage criterion CC\n" 
+       "\n"
+      ;
 }

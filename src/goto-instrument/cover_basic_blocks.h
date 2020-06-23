@@ -38,7 +38,8 @@ public:
   /// \param block_nr: a block number
   /// \return the source location selected for
   ///   instrumentation representative of the given block
-  virtual const source_locationt &
+  virtual const locationt
+ &
   source_location_of(std::size_t block_nr) const = 0;
 
   /// Outputs the list of blocks
@@ -79,7 +80,8 @@ public:
   /// \param block_nr: a block number
   /// \return the source location selected for
   ///   instrumentation representative of the given block
-  const source_locationt &
+  const locationt
+ &
   source_location_of(std::size_t block_nr) const override;
 
   /// Output warnings about ignored blocks
@@ -105,7 +107,8 @@ private:
     /// the source location representative for this block
     /// (we need a separate copy of source locations because we attach
     ///  the line number ranges to them)
-    source_locationt source_location;
+    locationt
+ source_location;
 
     /// the set of lines belonging to this block
     std::unordered_set<std::size_t> lines;
@@ -140,7 +143,8 @@ private:
   // map block number to first instruction of the block
   std::vector<goto_programt::const_targett> block_infos;
   // map block number to its location
-  std::vector<source_locationt> block_locations;
+  std::vector<locationt
+> block_locations;
   // map java indexes to block indexes
   std::unordered_map<irep_idt, std::size_t> index_to_block;
   // map block number to its source lines
@@ -160,7 +164,8 @@ public:
 
   /// \param block_number: a block number
   /// \return source location corresponding to the given block
-  const source_locationt &
+  const locationt
+ &
   source_location_of(std::size_t block_number) const override;
 
   /// Outputs the list of blocks

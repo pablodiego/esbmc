@@ -35,7 +35,7 @@ public:
   }
 
   virtual void show_symbol_table();
-  virtual void show_symbol_table_plain(std::ostream &out);
+  //virtual void show_symbol_table_plain(std::ostream &out);
   virtual void show_symbol_table_xml_ui();
 
   typedef ui_message_handlert::uit uit;
