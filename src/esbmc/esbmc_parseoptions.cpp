@@ -1854,9 +1854,9 @@ void esbmc_parseoptionst::help()
        " --interval-analysis          enable interval analysis and add assumes "
        "to the program\n"
        "\n"
-       
+
        "\nGOTO_CHECK\n"
-       " -- cover cc                  create test-suite with coverage criterion CC\n" 
-       "\n"
-      ;
+       " --cover cc                  create test-suite with coverage "
+       "criterion CC\n"
+       "\n";
 }
