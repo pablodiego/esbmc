@@ -109,7 +109,7 @@ struct cbmc_invariants_should_throwt
 ///
 class invariant_failedt
 {
- private:
+private:
   const std::string file;
   const std::string function;
   const int line;
@@ -181,35 +181,37 @@ public:
 
 #if defined(CPROVER_INVARIANT_CPROVER_ASSERT)
 // Used to allow CPROVER to check itself
-#define INVARIANT(CONDITION, REASON)                                          \
+#define INVARIANT(CONDITION, REASON)                                           \
   __CPROVER_assert((CONDITION), "Invariant : " REASON)
-#define INVARIANT_WITH_DIAGNOSTICS(CONDITION, REASON, ...)                             \
+#define INVARIANT_WITH_DIAGNOSTICS(CONDITION, REASON, ...)                     \
   __CPROVER_assert((CONDITION), "Invariant : " REASON)
 
-#define INVARIANT_STRUCTURED(CONDITION, TYPENAME, ...) \
-  INVARIANT(CONDITION, "")
+#define INVARIANT_STRUCTURED(CONDITION, TYPENAME, ...) INVARIANT(CONDITION, "")
 
 #elif defined(CPROVER_INVARIANT_DO_NOT_CHECK)
 // For performance builds, invariants can be ignored
 // This is *not* recommended as it can result in unpredictable behaviour
 // including silently reporting incorrect results.
 // This is also useful for checking side-effect freedom.
-#define INVARIANT(CONDITION, REASON)                                          \
+#define INVARIANT(CONDITION, REASON)                                           \
   do                                                                           \
   {                                                                            \
   } while(false)
-#define INVARIANT_WITH_DIAGNOSTICS(CONDITION, REASON, ...)                             \
+#define INVARIANT_WITH_DIAGNOSTICS(CONDITION, REASON, ...)                     \
   do                                                                           \
   {                                                                            \
   } while(false)
-#define INVARIANT_STRUCTURED(CONDITION, TYPENAME, ...) do {} while(false)
+#define INVARIANT_STRUCTURED(CONDITION, TYPENAME, ...)                         \
+  do                                                                           \
+  {                                                                            \
+  } while(false)
 
 #elif defined(CPROVER_INVARIANT_ASSERT)
 // Not recommended but provided for backwards compatability
 #include <cassert>
 // NOLINTNEXTLINE(*)
 #define INVARIANT(CONDITION, REASON) assert((CONDITION) && ((REASON), true))
-#define INVARIANT_WITH_DIAGNOSTICS(CONDITION, REASON, ...)                             \
+#define INVARIANT_WITH_DIAGNOSTICS(CONDITION, REASON, ...)                     \
   assert((CONDITION) && ((REASON), true)) /* NOLINT */
 // NOLINTNEXTLINE(*)
 #define INVARIANT_STRUCTURED(CONDITION, TYPENAME, ...) assert((CONDITION))
@@ -244,7 +246,7 @@ CBMC_NORETURN
     const std::string &condition,
     Params &&... params)
 {
-  std::string backtrace=get_backtrace();
+  std::string backtrace = get_backtrace();
   ET to_throw(
     file,
     function,
@@ -272,8 +274,7 @@ CBMC_NORETURN
 /// \param reason: brief description of the invariant violation.
 /// \param condition: the condition this invariant is checking.
 CBMC_NORETURN
-inline void
-invariant_violated_string(
+inline void invariant_violated_string(
   const std::string &file,
   const std::string &function,
   const int line,

@@ -46,7 +46,7 @@ class irept
 {
 public:
   typedef std::vector<irept> subt;
-  //typedef std::list<irept> subt;
+  // typedef std::list<irept> subt;
 
   typedef std::map<irep_namet, irept> named_subt;
 
@@ -126,7 +126,7 @@ public:
 
   // These methods should be protected; however to make things play nice with
   // the C++ frontend right now, they're made public.
-  //protected:
+  // protected:
   // This class has to be able to fiddle with ireps directly.
   friend class irep_serializationt;
 
@@ -148,7 +148,7 @@ public:
 
   void set(const irep_namet &name, const long value);
   void set(const irep_namet &name, const irept &irep);
-  //public:
+  // public:
   void remove(const irep_namet &name);
   void move_to_sub(irept &irep);
   void move_to_named_sub(const irep_namet &name, irept &irep);
@@ -1290,8 +1290,10 @@ public:
   static const irep_idt id_not, id_notequal, id_pointer, id_signedbv;
   static const irep_idt id_struct, id_symbol, id_typecast, id_union;
   static const irep_idt id_unsignedbv;
-  static const irep_idt id_property_id, id_property_class, id_comment, id_switch_case_number;
-  static const irep_idt id_java_bytecode_index,id_basic_block_covered_lines, id_basic_block_source_lines; 
+  static const irep_idt id_property_id, id_property_class, id_comment,
+    id_switch_case_number;
+  static const irep_idt id_java_bytecode_index, id_basic_block_covered_lines,
+    id_basic_block_source_lines;
 
   class dt
   {

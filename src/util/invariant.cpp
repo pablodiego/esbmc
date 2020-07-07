@@ -37,35 +37,32 @@ bool cbmc_invariants_should_throw = false;
 /// \param stack_entry: Description of the stack_entry
 ///
 /// \return True <=> the entry has been successfully demangled and printed.
-static bool output_demangled_name(
-  std::ostream &out,
-  const std::string &stack_entry)
+static bool
+output_demangled_name(std::ostream &out, const std::string &stack_entry)
 {
-  bool return_value=false;
+  bool return_value = false;
 
   std::string working(stack_entry);
 
-  std::string::size_type start=working.rfind('(');  // Path may contain '(' !
-  std::string::size_type end=working.find('+', start);
+  std::string::size_type start = working.rfind('('); // Path may contain '(' !
+  std::string::size_type end = working.find('+', start);
 
-  if(start!=std::string::npos &&
-     end!=std::string::npos &&
-     start+1<=end-1)
+  if(
+    start != std::string::npos && end != std::string::npos &&
+    start + 1 <= end - 1)
   {
-    std::string::size_type length=end-(start+1);
-    std::string mangled(working.substr(start+1, length));
+    std::string::size_type length = end - (start + 1);
+    std::string mangled(working.substr(start + 1, length));
 
-    int demangle_success=1;
-    std::unique_ptr<char, freert> demangled(
-      abi::__cxa_demangle(
-        mangled.c_str(), nullptr, nullptr, &demangle_success));
+    int demangle_success = 1;
+    std::unique_ptr<char, freert> demangled(abi::__cxa_demangle(
+      mangled.c_str(), nullptr, nullptr, &demangle_success));
 
-    if(demangle_success==0)
+    if(demangle_success == 0)
     {
-      out << working.substr(0, start+1)
-          << demangled.get()
+      out << working.substr(0, start + 1) << demangled.get()
           << working.substr(end);
-      return_value=true;
+      return_value = true;
     }
   }
 
@@ -73,28 +70,26 @@ static bool output_demangled_name(
 }
 #endif
 
-
 /// Prints a back trace to 'out'
 /// \param out: Stream to print backtrace
-void print_backtrace(
-  std::ostream &out)
+void print_backtrace(std::ostream &out)
 {
 #if defined(__GLIBC__) || defined(__APPLE__)
-    void * stack[50] = {};
+  void *stack[50] = {};
 
-    std::size_t entries=backtrace(stack, sizeof(stack) / sizeof(void *));
-    std::unique_ptr<char*, freert> description(
-      backtrace_symbols(stack, entries));
+  std::size_t entries = backtrace(stack, sizeof(stack) / sizeof(void *));
+  std::unique_ptr<char *, freert> description(
+    backtrace_symbols(stack, entries));
 
-    for(std::size_t i=0; i<entries; i++)
-    {
-      if(!output_demangled_name(out, description.get()[i]))
-        out << description.get()[i];
-      out << '\n' << std::flush;
-    }
+  for(std::size_t i = 0; i < entries; i++)
+  {
+    if(!output_demangled_name(out, description.get()[i]))
+      out << description.get()[i];
+    out << '\n' << std::flush;
+  }
 
 #else
-    out << "Backtraces not supported\n" << std::flush;
+  out << "Backtraces not supported\n" << std::flush;
 #endif
 }
 

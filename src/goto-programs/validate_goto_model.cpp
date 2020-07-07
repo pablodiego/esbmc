@@ -142,24 +142,23 @@ void validate_goto_modelt::check_returns_removed()
 
 void validate_goto_modelt::check_called_functions()
 {
-  auto test_for_function_address =
-    [this](const exprt &expr) {
-      if(expr.id() == ID_address_of)
+  auto test_for_function_address = [this](const exprt &expr) {
+    if(expr.id() == ID_address_of)
+    {
+      const auto &pointee = to_address_of_expr(expr).object();
+
+      if(pointee.id() == ID_symbol && pointee.type().id() == ID_code)
       {
-        const auto &pointee = to_address_of_expr(expr).object();
+        const auto &identifier = to_symbol_expr(pointee).get_identifier();
 
-        if(pointee.id() == ID_symbol && pointee.type().id() == ID_code)
-        {
-          const auto &identifier = to_symbol_expr(pointee).get_identifier();
-
-          DATA_CHECK(
-            vm,
-            function_map.find(identifier) != function_map.end(),
-            "every function whose address is taken must be in the "
-            "function map");
-        }
+        DATA_CHECK(
+          vm,
+          function_map.find(identifier) != function_map.end(),
+          "every function whose address is taken must be in the "
+          "function map");
       }
-    };
+    }
+  };
 
   for(const auto &fun : function_map)
   {

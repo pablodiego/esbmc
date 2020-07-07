@@ -128,7 +128,7 @@ void language_uit::show_symbol_table()
   switch(get_ui())
   {
   case ui_message_handlert::PLAIN:
-   // show_symbol_table_plain(std::cout);
+    // show_symbol_table_plain(std::cout);
     break;
 
   case ui_message_handlert::XML_UI:

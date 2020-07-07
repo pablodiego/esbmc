@@ -12,7 +12,7 @@ Author: Daniel Kroening, kroening@kroening.com
 #ifndef CPROVER_GOTO_PROGRAMS_GOTO_MODEL_H
 #define CPROVER_GOTO_PROGRAMS_GOTO_MODEL_H
 
-#include <util/symbol_table.h> 
+#include <util/symbol_table.h>
 //#include <util/journalling_symbol_table.h>
 
 #include "abstract_goto_model.h"
@@ -43,8 +43,8 @@ public:
   }
 
   // Copying is normally too expensive
-  goto_modelt(const goto_modelt &)=delete;
-  goto_modelt &operator=(const goto_modelt &)=delete;
+  goto_modelt(const goto_modelt &) = delete;
+  goto_modelt &operator=(const goto_modelt &) = delete;
 
   // Move operations need to be explicitly enabled as they are deleted with the
   // copy operations
@@ -52,20 +52,23 @@ public:
   //  explicitly (see https://msdn.microsoft.com/en-us/library/hh567368.aspx
   //  under "Defaulted and Deleted Functions")
 
-  goto_modelt(goto_modelt &&other):
-    symbol_table(std::move(other.symbol_table)),
-    goto_functions(std::move(other.goto_functions))
+  goto_modelt(goto_modelt &&other)
+    : symbol_table(std::move(other.symbol_table)),
+      goto_functions(std::move(other.goto_functions))
   {
   }
 
   goto_modelt &operator=(goto_modelt &&other)
   {
-    symbol_table=std::move(other.symbol_table);
-    goto_functions=std::move(other.goto_functions);
+    symbol_table = std::move(other.symbol_table);
+    goto_functions = std::move(other.goto_functions);
     return *this;
   }
 
-  void unload(const irep_idt &name) { goto_functions.unload(name); }
+  void unload(const irep_idt &name)
+  {
+    goto_functions.unload(name);
+  }
 
   // Implement the abstract goto model interface:
 
@@ -79,8 +82,8 @@ public:
     return symbol_table;
   }
 
-  const goto_functionst::goto_functiont &get_goto_function(
-    const irep_idt &id) override
+  const goto_functionst::goto_functiont &
+  get_goto_function(const irep_idt &id) override
   {
     return goto_functions.function_map.at(id);
   }
@@ -119,9 +122,8 @@ class wrapper_goto_modelt : public abstract_goto_modelt
 public:
   wrapper_goto_modelt(
     const symbol_tablet &symbol_table,
-    const goto_functionst &goto_functions) :
-    symbol_table(symbol_table),
-    goto_functions(goto_functions)
+    const goto_functionst &goto_functions)
+    : symbol_table(symbol_table), goto_functions(goto_functions)
   {
   }
 
@@ -135,8 +137,8 @@ public:
     return symbol_table;
   }
 
-  const goto_functionst::goto_functiont &get_goto_function(
-    const irep_idt &id) override
+  const goto_functionst::goto_functiont &
+  get_goto_function(const irep_idt &id) override
   {
     return goto_functions.function_map.at(id);
   }
@@ -195,11 +197,11 @@ public:
     journalling_symbol_tablet &symbol_table,
     goto_functionst &goto_functions,
     const irep_idt &function_id,
-    goto_functionst::goto_functiont &goto_function):
-  symbol_table(symbol_table),
-  goto_functions(goto_functions),
-  function_id(function_id),
-  goto_function(goto_function)
+    goto_functionst::goto_functiont &goto_function)
+    : symbol_table(symbol_table),
+      goto_functions(goto_functions),
+      function_id(function_id),
+      goto_function(goto_function)
   {
   }
 
