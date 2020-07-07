@@ -19,14 +19,14 @@
 std::pair<symbolt &, bool> symbol_tablet::insert(symbolt symbol)
 {
   // Add the symbol to the table or retrieve existing symbol with the same name
-  std::pair<symbolst::iterator, bool> result=
+  std::pair<symbolst::iterator, bool> result =
     internal_symbols.emplace(symbol.name, std::move(symbol));
-  symbolt &new_symbol=result.first->second;
+  symbolt &new_symbol = result.first->second;
   if(result.second)
   {
     try
     {
-      symbol_base_mapt::iterator base_result=
+      symbol_base_mapt::iterator base_result =
         internal_symbol_base_map.emplace(new_symbol.base_name, new_symbol.name);
       if(!new_symbol.module.empty())
       {
@@ -72,10 +72,10 @@ bool symbol_tablet::move(symbolt &symbol, symbolt *&new_symbol)
   symbolt temp_symbol;
   // This is not copying the symbol, this is passing the three required
   // parameters to insert (just in the symbol)
-  temp_symbol.name=symbol.name;
-  temp_symbol.base_name=symbol.base_name;
-  temp_symbol.module=symbol.module;
-  std::pair<symbolt &, bool> result=insert(std::move(temp_symbol));
+  temp_symbol.name = symbol.name;
+  temp_symbol.base_name = symbol.base_name;
+  temp_symbol.module = symbol.module;
+  std::pair<symbolt &, bool> result = insert(std::move(temp_symbol));
   if(result.second)
   {
     // Move the provided symbol into the symbol table, this can't be done
@@ -83,7 +83,7 @@ bool symbol_tablet::move(symbolt &symbol, symbolt *&new_symbol)
     result.first.swap(symbol);
   }
   // Return the address of the symbol in the table
-  new_symbol=&result.first;
+  new_symbol = &result.first;
   return !result.second;
 }
 
@@ -91,18 +91,21 @@ bool symbol_tablet::move(symbolt &symbol, symbolt *&new_symbol)
 /// \param entry: an iterator pointing at the symbol to remove
 void symbol_tablet::erase(const symbolst::const_iterator &entry)
 {
-  const symbolt &symbol=entry->second;
+  const symbolt &symbol = entry->second;
 
   auto base_it = symbol_base_map.lower_bound(symbol.base_name);
   const auto base_it_end = symbol_base_map.upper_bound(symbol.base_name);
-  while(base_it!=base_it_end && base_it->second!=symbol.name)
+  while(base_it != base_it_end && base_it->second != symbol.name)
     ++base_it;
   INVARIANT(
-    base_it!=base_it_end,
+    base_it != base_it_end,
     "symbolt::base_name should not be changed "
     "after it is added to the symbol_table "
-    "(name: "+id2string(symbol.name)+", "
-    "current base_name: "+id2string(symbol.base_name)+")");
+    "(name: " +
+      id2string(symbol.name) +
+      ", "
+      "current base_name: " +
+      id2string(symbol.base_name) + ")");
   internal_symbol_base_map.erase(base_it);
 
   if(!symbol.module.empty())

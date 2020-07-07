@@ -10,7 +10,6 @@ symbol_table_baset::~symbol_table_baset()
 {
 }
 
-
 /// Add a new symbol to the symbol table
 /// \param symbol: The symbol to be added to the symbol table
 /// \return Returns true if the process failed, which should only happen if

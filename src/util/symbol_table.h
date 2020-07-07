@@ -8,11 +8,11 @@
 
 #include "symbol_table_base.h"
 
-#define forall_symbol_base_map(it, expr, base_name) \
-  for(symbol_base_mapt::const_iterator it=(expr).lower_bound(base_name), \
-                                       it_end=(expr).upper_bound(base_name); \
-      it!=it_end; ++it)
-
+#define forall_symbol_base_map(it, expr, base_name)                            \
+  for(symbol_base_mapt::const_iterator it = (expr).lower_bound(base_name),     \
+                                       it_end = (expr).upper_bound(base_name); \
+      it != it_end;                                                            \
+      ++it)
 
 /// \brief The symbol table
 /// \ingroup gr_symbol_table
@@ -51,7 +51,7 @@ public:
   symbol_tablet &operator=(const symbol_tablet &other)
   {
     // Copy to temp and then call move assignment
-    return *this=symbol_tablet(other);
+    return *this = symbol_tablet(other);
   }
 
   /// Move constructor.

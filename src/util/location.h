@@ -75,7 +75,7 @@ public:
   {
     this->file(file);
   }
-   void set_working_directory(const irep_idt &cwd)
+  void set_working_directory(const irep_idt &cwd)
   {
     set("cwd", cwd);
   }
@@ -142,12 +142,12 @@ public:
 
   void set_hide()
   {
-    //set(id_hide, true);
+    // set(id_hide, true);
   }
 
   bool get_hide() const
   {
-    //return get_bool(id_hide);
+    // return get_bool(id_hide);
   }
 
   static bool is_built_in(const std::string &s);
@@ -159,23 +159,23 @@ public:
 
   /// Set all unset source-location fields in this object to their values in
   /// 'from'. Leave set fields in this object alone.
-  void merge(const locationt&from);
+  void merge(const locationt &from);
 
   static const locationt &nil()
   {
     return static_cast<const locationt &>(get_nil_irep());
   }
 
-  //optionalt<std::string> full_path() const;
+  // optionalt<std::string> full_path() const;
 
   void add_pragma(const irep_idt &pragma)
   {
-    //add(id_pragma).add(pragma);
+    // add(id_pragma).add(pragma);
   }
 
   const irept::named_subt &get_pragmas() const
   {
-    //return find(id_pragma).get_named_sub();
+    // return find(id_pragma).get_named_sub();
   }
 
 protected:

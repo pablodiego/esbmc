@@ -163,18 +163,19 @@ public:
     }
 
     iteratort(
-        const iteratort &it,
-        std::function<void(const irep_idt &id)> on_get_writeable)
+      const iteratort &it,
+      std::function<void(const irep_idt &id)> on_get_writeable)
       : it(it.it), on_get_writeable(std::move(on_get_writeable))
     {
     }
 
     // The following typedefs are NOLINT as they are needed by the STL
-    // typedef symbolst::iterator::difference_type difference_type;     // NOLINT
-    // typedef symbolst::const_iterator::value_type value_type;         // NOLINT
-    // typedef symbolst::const_iterator::pointer pointer;               // NOLINT
-    // typedef symbolst::const_iterator::reference reference;           // NOLINT
-    // typedef symbolst::iterator::iterator_category iterator_category; // NOLINT
+    // typedef symbolst::iterator::difference_type difference_type;     //
+    // NOLINT typedef symbolst::const_iterator::value_type value_type; // NOLINT
+    // typedef symbolst::const_iterator::pointer pointer;               //
+    // NOLINT typedef symbolst::const_iterator::reference reference; // NOLINT
+    // typedef symbolst::iterator::iterator_category iterator_category; //
+    // NOLINT
 
     bool operator!=(const iteratort &other) const
     {

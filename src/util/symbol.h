@@ -27,7 +27,6 @@ public:
   irep_idt name;
   irep_idt mode;
 
-
   // global use
   bool is_type, is_macro, is_parameter;
 
