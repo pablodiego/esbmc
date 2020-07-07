@@ -38,8 +38,7 @@ void cover_branch_instrumentert::instrument(
     // coverage
     std::string comment = "entry point";
 
-    locationt
- source_location = i_it->source_location;
+    locationt source_location = i_it->source_location;
 
     goto_programt::targett t = goto_program.insert_before(
       i_it, make_assertion(false_exprt(), source_location));
@@ -54,8 +53,7 @@ void cover_branch_instrumentert::instrument(
     std::string false_comment = "block " + b + " branch false";
 
     exprt guard = i_it->guard;
-    locationt
- source_location = i_it->source_location;
+    locationt source_location = i_it->source_location;
 
     goto_program.insert_before_swap(i_it);
     *i_it = make_assertion(not_exprt(guard), source_location);

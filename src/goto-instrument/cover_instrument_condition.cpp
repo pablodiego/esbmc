@@ -31,8 +31,7 @@ void cover_condition_instrumentert::instrument(
   {
     const std::set<exprt> conditions = collect_conditions(i_it);
 
-    const locationt
- source_location = i_it->source_location;
+    const locationt source_location = i_it->source_location;
 
     for(const auto &c : conditions)
     {

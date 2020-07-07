@@ -18,8 +18,7 @@ bool is_condition(const exprt &src)
 
   // conditions are 'atomic predicates'
   if(
-    src.id() == id_and || src.id() == id_or || src.id() == id_not
- ||
+    src.id() == id_and || src.id() == id_or || src.id() == id_not ||
     src.id() == id_implies)
     return false;
 
@@ -80,8 +79,7 @@ void collect_decisions_rec(const exprt &src, std::set<exprt> &dest)
     {
       // ignore me
     }
-    else if(src.id() == id_not
-)
+    else if(src.id() == id_not)
     {
       collect_decisions_rec(to_not_expr(src).op(), dest);
     }

@@ -103,9 +103,10 @@ void collect_mcdc_controlling_rec(
       }
     }
   }
-  else if(src.id() == id_not
+  else if(
+    src.id() == id_not
 
-)
+  )
   {
     exprt e = to_not_expr(src).op();
     if(!is_condition(e))
@@ -209,9 +210,10 @@ collect_mcdc_controlling_nested(const std::set<exprt> &decisions)
           // To expand an operand if it is not atomic,
           // and label the ''changed'' flag; the resulted
           // expansion of such an operand is stored in ''res''.
-          if(operands[i].id() == id_not
+          if(
+            operands[i].id() == id_not
 
-)
+          )
           {
             exprt no = to_not_expr(operands[i]).op();
             if(!is_condition(no))
@@ -274,9 +276,10 @@ std::set<signed> sign_of_expr(const exprt &e, const exprt &E)
   }
 
   // or, ''E'' is the negation of ''e''?
-  if(E.id() == id_not
+  if(
+    E.id() == id_not
 
-)
+  )
   {
     if(e == to_not_expr(E).op())
     {
@@ -292,9 +295,10 @@ std::set<signed> sign_of_expr(const exprt &e, const exprt &E)
   {
     if(x == e)
       signs.insert(+1);
-    else if(x.id() == id_not
+    else if(
+      x.id() == id_not
 
-)
+    )
     {
       const exprt &x_op = to_not_expr(x).op();
       if(x_op == e)
@@ -428,9 +432,10 @@ bool eval_expr(const std::map<exprt, signed> &atomic_exprs, const exprt &src)
       return false;
   }
   // src is NOT
-  else if(src.id() == id_not
+  else if(
+    src.id() == id_not
 
-)
+  )
   {
     return !eval_expr(atomic_exprs, to_not_expr(src).op());
   }
@@ -658,8 +663,7 @@ void cover_mcdc_instrumentert::instrument(
       decisions.end(),
       inserter(both, both.end()));
 
-    const locationt
- source_location = i_it->source_location;
+    const locationt source_location = i_it->source_location;
 
     for(const auto &p : both)
     {

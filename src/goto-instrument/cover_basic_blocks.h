@@ -20,7 +20,8 @@ Author: Daniel Kroening
 
 #include "source_lines.h"
 
-class cover_blocks_baset {
+class cover_blocks_baset
+{
 public:
   virtual ~cover_blocks_baset() = default;
   /// \param t: a goto instruction
@@ -46,9 +47,11 @@ public:
   /// \param function_id: name of \p goto_program
   /// \param goto_program: The goto program
   /// \param message_handler: The message handler
-  virtual void report_block_anomalies(const irep_idt &function_id,
-                                      const goto_programt &goto_program,
-                                      message_handlert &message_handler) {
+  virtual void report_block_anomalies(
+    const irep_idt &function_id,
+    const goto_programt &goto_program,
+    message_handlert &message_handler)
+  {
     // unused parameters
     (void)function_id;
     (void)goto_program;
@@ -56,7 +59,8 @@ public:
   }
 };
 
-class cover_basic_blockst final : public cover_blocks_baset {
+class cover_basic_blockst final : public cover_blocks_baset
+{
 public:
   explicit cover_basic_blockst(const goto_programt &_goto_program);
 
@@ -80,9 +84,10 @@ public:
   /// \param function_id: name of \p goto_program
   /// \param goto_program: The goto program
   /// \param message_handler: The message handler
-  void report_block_anomalies(const irep_idt &function_id,
-                              const goto_programt &goto_program,
-                              message_handlert &message_handler) override;
+  void report_block_anomalies(
+    const irep_idt &function_id,
+    const goto_programt &goto_program,
+    message_handlert &message_handler) override;
 
   /// Outputs the list of blocks
   void output(std::ostream &out) const override;
@@ -90,7 +95,8 @@ public:
 private:
   typedef std::map<goto_programt::const_targett, std::size_t> block_mapt;
 
-  struct block_infot {
+  struct block_infot
+  {
     /// the program location to instrument for this block
     optionalt<goto_programt::const_targett> representative_inst;
 
@@ -121,12 +127,13 @@ private:
 
   /// If this block is a continuation of a previous block through unconditional
   /// forward gotos, return this blocks number.
-  static optionalt<std::size_t>
-  continuation_of_block(const goto_programt::const_targett &instruction,
-                        block_mapt &block_map);
+  static optionalt<std::size_t> continuation_of_block(
+    const goto_programt::const_targett &instruction,
+    block_mapt &block_map);
 };
 
-class cover_basic_blocks_javat final : public cover_blocks_baset {
+class cover_basic_blocks_javat final : public cover_blocks_baset
+{
 private:
   // map block number to first instruction of the block
   std::vector<goto_programt::const_targett> block_infos;
